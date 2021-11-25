@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import 'Place/ui/screens/Home/main.dart';
-import 'Place/ui/screens/Search/main.dart';
-import 'User/ui/screens/Profile/main.dart';
+import 'Place/ui/screens/home.screen.dart';
+import 'Place/ui/screens/search.screen.dart';
+import 'User/ui/screens/profile.screen.dart';
 
 class PlatziCupertino extends StatelessWidget {
   final List<Widget> widgetChildren = [HomePage(), Search(), Profile()];

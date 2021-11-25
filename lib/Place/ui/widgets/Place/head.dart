@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_platzi/widgets/StartList/main.dart';
+import 'package:travel_platzi/widgets/start_list.widget.dart';
 
 class Head extends StatelessWidget {
   String namePlace;
@@ -20,10 +20,7 @@ class Head extends StatelessWidget {
     );
 
     return Row(
-      children: [
-        title,
-        StarList(starsAmount, 325.0, 25.0)
-      ],
+      children: [title, StarList(starsAmount, 325.0, 25.0)],
     );
   }
 }
