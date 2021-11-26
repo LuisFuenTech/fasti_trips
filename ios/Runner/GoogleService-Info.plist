@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1000656049984-747aohtsrotfoqop4g1k2ikp744thiu0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1000656049984-747aohtsrotfoqop4g1k2ikp744thiu0</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1000656049984-qklp5ivdvmmhaea5olr7c1p8e0t2gr6r.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCWtPszjUdY-LO3Y8pqCeKYQ6bXBxRYeQk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1000656049984</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.travelPlatziApp</string>
+	<key>PROJECT_ID</key>
+	<string>axiomatic-spark-251404</string>
+	<key>STORAGE_BUCKET</key>
+	<string>axiomatic-spark-251404.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1000656049984:ios:88af6d68c1a7fb55030ca5</string>
+	<key>DATABASE_URL</key>
+	<string>https://axiomatic-spark-251404.firebaseio.com</string>
+</dict>
+</plist>
