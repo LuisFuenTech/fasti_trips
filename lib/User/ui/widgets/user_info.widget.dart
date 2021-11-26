@@ -36,8 +36,8 @@ class UserInfo extends StatelessWidget {
               color: Colors.white, width: 2.0, style: BorderStyle.solid),
           image: DecorationImage(
               fit: BoxFit.cover,
-              //image: AssetImage(user.imageURL),
-              image: NetworkImage(user.imageURL))),
+              //image: AssetImage(user.photoURL),
+              image: NetworkImage(user.photoURL))),
     );
 
     final userDetails = Column(

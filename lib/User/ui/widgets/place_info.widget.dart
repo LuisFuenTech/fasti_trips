@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:travel_platzi/Place/model/info_place.model.dart';
+import 'package:travel_platzi/Place/model/place.model.dart';
 import 'package:travel_platzi/widgets/floating_action_button_green.widget.dart';
 
 class PlaceInfo extends StatelessWidget {
-  InfoPlace placeInfo;
+  Place placeInfo;
 
   PlaceInfo(this.placeInfo, {Key? key}) : super(key: key);
 
@@ -12,7 +12,7 @@ class PlaceInfo extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     final place = Text(
-      this.placeInfo.place,
+      this.placeInfo.name,
       style: const TextStyle(
           fontFamily: 'Lato', fontSize: 20.0, fontWeight: FontWeight.bold),
     );
@@ -23,7 +23,7 @@ class PlaceInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                this.placeInfo.where,
+                this.placeInfo.description,
                 style: const TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
                     fontFamily: 'Lato',
@@ -31,7 +31,7 @@ class PlaceInfo extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                this.placeInfo.type,
+                this.placeInfo.photoURL,
                 style: const TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
                     fontFamily: 'Lato',
@@ -41,7 +41,7 @@ class PlaceInfo extends StatelessWidget {
             ]));
 
     final steps = Text(
-      'Steps ${this.placeInfo.steps}',
+      'Hearts ${this.placeInfo.likes}',
       style: const TextStyle(
           fontFamily: 'Lato',
           fontSize: 14.0,
@@ -70,7 +70,13 @@ class PlaceInfo extends StatelessWidget {
 
     return Stack(
       alignment: const Alignment(0.8, 1.25),
-      children: <Widget>[card, const FloatingActionButtonGreen()],
+      children: <Widget>[
+        card,
+        FloatingActionButtonGreen(
+          iconData: Icons.favorite_border,
+          onPressed: () {},
+        )
+      ],
     );
   }
 }

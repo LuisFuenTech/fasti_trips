@@ -1,12 +1,15 @@
-import 'dart:math';
-
 //import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class FloatingActionButtonGreen extends StatefulWidget {
-  const FloatingActionButtonGreen({Key? key}) : super(key: key);
+  final IconData iconData;
+  final VoidCallback onPressed;
+
+  const FloatingActionButtonGreen(
+      {Key? key, required this.iconData, required this.onPressed})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -20,7 +23,7 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
   final DatabaseReference _favorites =
       FirebaseDatabase.instance.reference().child("test");
 
-  void onPressedFavorite() {
+  /*void onPressedFavorite() {
     setState(() {
       isFavorite = !isFavorite;
     });
@@ -34,19 +37,19 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
           : const Text("Removed from Favorites"),
       duration: const Duration(milliseconds: 1500),
     ));
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: const Color(0xFF11DA53),
-      mini: true,
-      tooltip: "Fav",
-      onPressed: onPressedFavorite,
-      child: Icon(
-        isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: Colors.white,
-      ),
-    );
+        backgroundColor: const Color(0xFF11DA53),
+        mini: true,
+        tooltip: "Fav",
+        onPressed: widget.onPressed,
+        child: Icon(
+          widget.iconData,
+          color: Colors.white,
+        ),
+        heroTag: null);
   }
 }

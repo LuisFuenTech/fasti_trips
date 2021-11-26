@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:travel_platzi/Place/model/info_place.model.dart';
+import 'package:travel_platzi/Place/model/place.model.dart';
 
 import 'place_info.widget.dart';
 
-class Place extends StatelessWidget {
+class PlaceWidget extends StatelessWidget {
   String image;
-  InfoPlace infoPlace;
+  Place place;
 
-  Place(this.image, this.infoPlace);
+  PlaceWidget(this.image, this.place);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Place extends StatelessWidget {
 
     return Stack(
       alignment: const Alignment(0.0, 0.8),
-      children: <Widget>[photoCard, PlaceInfo(infoPlace)],
+      children: <Widget>[photoCard, PlaceInfo(place)],
     );
   }
 }

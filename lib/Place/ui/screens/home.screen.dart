@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/Place/main.dart';
-import '../widgets/ReviewList/main.dart';
 import '../widgets/place_app_bar.widget.dart';
+import '../widgets/place_info.widget.dart';
+import '../widgets/review_place_list.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -12,8 +12,10 @@ class HomePage extends StatelessWidget {
 
     return Stack(
       children: [
-        ListView(
-            children: [Place("Cartagena", 4.5, descriptionText), ReviewList()]),
+        ListView(children: [
+          PlaceInfo("Cartagena", 4.5, descriptionText),
+          ReviewList()
+        ]),
         HeaderAppBar()
       ],
     );
