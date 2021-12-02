@@ -15,6 +15,8 @@ class FirebaseService {
     print("onBackgroundApp notification handler ${message.messageId}");
 
     String title = message.notification?.title ?? "DEFAULT_TITLE_NOTIFY";
+    print(message.notification?.title);
+    print(message.notification?.body);
     print(message.data);
 
     _notificationStream.add(message.data);
@@ -41,8 +43,10 @@ class FirebaseService {
   static Future<void> initializeNotificationApp() async {
     await getDeviceToken();
     FirebaseSource.onBackgroundMessage(_onBackgroundAppNotificationHandler);
-    FirebaseSource.onMessage(_onMessageAppNotificationHandler);
     FirebaseSource.onMessageOpenedApp(_onOpenAppNotificationHandler);
+
+    //Uncomment when want to implement something when user is using the app
+    //FirebaseSource.onMessage(_onMessageAppNotificationHandler);
   }
 
   static Future<String?> getDeviceToken() async {

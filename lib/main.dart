@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:travel_platzi/User/bloc/user.bloc.dart';
 import 'package:travel_platzi/User/ui/screens/sign_in.screen.dart';
+import 'package:travel_platzi/platzi_trips.dart';
 import 'package:travel_platzi/services/firebase.service.dart';
 
 Future<void> main() async {
@@ -36,7 +37,14 @@ class _AppState extends State<App> {
     super.initState();
 
     FirebaseService.notificationStream.listen((message) {
-      print("App: ---> $message");
+      print("App: ---> ${message["type"]}");
+
+      /*
+      * message = {
+      *   destination: String
+      * }
+      * */
+      navigatorKey.currentState?.pushNamed("main", arguments: message);
     });
   }
 
@@ -46,6 +54,13 @@ class _AppState extends State<App> {
       bloc: UserBloc(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          scaffoldMessengerKey: messengerKey,
+          initialRoute: 'sign_in',
+          routes: {
+            "sign_in": (_) => const SignInScreen(),
+            "main": (_) => const PlatziTrips()
+          },
           title: "Fasti Trips",
           home: FutureBuilder(
             future: FirebaseService.initializeApp(),

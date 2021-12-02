@@ -47,6 +47,7 @@ dependencies:
   cached_network_image: ^3.1.0+1
   firebase_messaging: ^11.1.0
   firebase_analytics: ^8.3.4
+  flutter_launcher_icons: ^0.9.2
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +62,11 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  image_path: "assets/images/suitcase.png"
+  android: true
+  ios: true
 
 # The following section is specific to Flutter.
 flutter:

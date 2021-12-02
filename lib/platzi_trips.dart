@@ -16,7 +16,9 @@ class PlatziTrips extends StatefulWidget {
 }
 
 class _PlatziTrips extends State<PlatziTrips> {
-  int indexTap = 0;
+  final Map<String, int> bottomNavMap = {"home": 0, "search": 1, "profile": 2};
+  late int indexTap = 0;
+
   final List<Widget> widgetChildren = [
     Builder(
       builder: (BuildContext context) {
@@ -45,6 +47,20 @@ class _PlatziTrips extends State<PlatziTrips> {
 
   @override
   Widget build(BuildContext context) {
+    Map castArguments(Object? args) {
+      if (args != null) {
+        return args as Map;
+      } else {
+        return {};
+      }
+    }
+
+    final Map arguments =
+        castArguments(ModalRoute.of(context)?.settings.arguments); // as Map;
+
+    print(arguments["destination"]);
+    indexTap = bottomNavMap[arguments["destination"]] ?? indexTap;
+
     return Scaffold(
       body: widgetChildren[indexTap],
       bottomNavigationBar: Theme(
