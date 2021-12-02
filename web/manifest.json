@@ -1,6 +1,6 @@
 {
-    "name": "travel_platzi_app",
-    "short_name": "travel_platzi_app",
+    "name": "fasti_trips",
+    "short_name": "fasti_trips",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

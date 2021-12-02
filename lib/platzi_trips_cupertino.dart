@@ -6,7 +6,13 @@ import 'Place/ui/screens/search.screen.dart';
 import 'User/ui/screens/profile.screen.dart';
 
 class PlatziCupertino extends StatelessWidget {
-  final List<Widget> widgetChildren = [HomePage(), Search(), Profile()];
+  final List<Widget> widgetChildren = [
+    const HomePage(),
+    const Search(),
+    Profile()
+  ];
+
+  PlatziCupertino({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

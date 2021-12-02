@@ -29,14 +29,6 @@ class PlaceInfo extends StatelessWidget {
                     fontFamily: 'Lato',
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold),
-              ),
-              Text(
-                this.placeInfo.photoURL,
-                style: const TextStyle(
-                    color: Color.fromRGBO(0, 0, 0, 0.4),
-                    fontFamily: 'Lato',
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
               )
             ]));
 

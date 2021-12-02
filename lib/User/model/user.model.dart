@@ -8,14 +8,15 @@ class User {
   final String photoURL;
   final List<Place> places;
   final List<Place> favoritePlaces;
+  String deviceToken;
 
-  User({
-    Key? key,
-    required this.uid,
-    required this.name,
-    required this.email,
-    required this.photoURL,
-    required this.places,
-    required this.favoritePlaces,
-  });
+  User(
+      {Key? key,
+      required this.uid,
+      required this.name,
+      required this.email,
+      required this.photoURL,
+      required this.places,
+      required this.favoritePlaces,
+      this.deviceToken = ""});
 }

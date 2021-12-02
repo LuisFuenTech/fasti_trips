@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:travel_platzi/data_sources/firebase.auth.dart';
+import 'package:travel_platzi/data_sources/firebase.source.dart';
 
 class AuthRepository {
-  final firebaseAuth = FirebaseAuthSource.firebaseAuth;
-  final googleSignIn = FirebaseAuthSource.googleSignIn;
+  final firebaseAuth = FirebaseSource.firebaseAuth;
+  final googleSignIn = FirebaseSource.googleSignIn;
 
   Future<User?> signIn() async {
     GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
@@ -17,11 +17,13 @@ class AuthRepository {
     return userCredential.user;
   }
 
-  Stream<User?> getUserStatus() => FirebaseAuthSource.userStatus;
+  Stream<User?> getUserStatusStream() => FirebaseSource.userStatusStream;
 
-  Stream<User?> getAuthStatus() => FirebaseAuthSource.authStatus;
+  Stream<User?> getAuthStatusStream() => FirebaseSource.authStatusStream;
 
-  signOut() async {
+  User? getCurrentUser() => FirebaseSource.currentUser;
+
+  Future<void> signOut() async {
     await firebaseAuth.signOut();
     await googleSignIn.signOut();
   }

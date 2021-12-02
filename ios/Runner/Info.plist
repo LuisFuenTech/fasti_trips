@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>travel_platzi_app</string>
+	<string>fasti_trips</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -55,5 +55,12 @@
     	</dict>
     </array>
     <!-- End of the Google Sign-in Section -->
+
+    <key>NSCameraUsageDescription</key>
+    	<string>Platzi Trips requiere tomar una foto. ¿Podemos user tu cámara?</string>
+    	<key>NSPhotoLibraryUsageDescription</key>
+    	<string>Platzi Trips requiere tomar una foto. ¿Podemos user tu cámara?</string>
+    	<key>NSMicrophoneUsageDescription</key>
+    	<string>Platzi Trips requiere tomar una foto. ¿Podemos user tu cámara?</string>
 </dict>
 </plist>

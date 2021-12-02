@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_platzi/User/model/user.model.dart';
+import 'package:travel_platzi/helpers/files.helper.dart';
 
 class UserInfo extends StatelessWidget {
   User user;
@@ -26,6 +27,7 @@ class UserInfo extends StatelessWidget {
           fontFamily: "Lato", fontSize: 15.0, color: Colors.white30),
     );
 
+    //print("photoooo -> ${user.photoURL}");
     final userPhoto = Container(
       margin: const EdgeInsets.only(right: 20.0),
       width: 90.0,
@@ -37,7 +39,7 @@ class UserInfo extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               //image: AssetImage(user.photoURL),
-              image: NetworkImage(user.photoURL))),
+              image: FilesHelper().pictureValidation(user.photoURL, true))),
     );
 
     final userDetails = Column(
@@ -46,7 +48,7 @@ class UserInfo extends StatelessWidget {
     );
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
       child: Row(
         children: [userPhoto, userDetails],
       ),

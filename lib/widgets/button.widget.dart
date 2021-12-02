@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  String buttonText = "Navigate";
+  final String buttonText;
+  final VoidCallback onPressed;
+  final bool isLoading;
 
-  Button(this.buttonText, {Key? key}) : super(key: key);
+  const Button(
+      {Key? key,
+      required this.buttonText,
+      required this.onPressed,
+      this.isLoading = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +27,26 @@ class Button extends StatelessWidget {
               stops: [0.0, 0.6],
               tileMode: TileMode.clamp)),
       child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Navigating..."),
-              duration: Duration(milliseconds: 1500)));
-        },
+        onTap: onPressed,
         child: Center(
-          child: Text(
-            buttonText,
-            style: const TextStyle(
-                fontSize: 18.0, fontFamily: "Lato", color: Colors.white),
-          ),
+          child: isLoading
+              ? Row(
+                  children: [
+                    Text(buttonText,
+                        style: const TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: "Lato",
+                            color: Colors.white)),
+                    const CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ],
+                )
+              : Text(
+                  buttonText,
+                  style: const TextStyle(
+                      fontSize: 18.0, fontFamily: "Lato", color: Colors.white),
+                ),
         ),
       ),
     );

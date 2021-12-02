@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:travel_platzi/User/bloc/user.bloc.dart';
 import 'package:travel_platzi/User/model/user.model.dart' as user_model;
 import 'package:travel_platzi/platzi_trips.dart';
+import 'package:travel_platzi/services/firebase.service.dart';
 import 'package:travel_platzi/widgets/button_green.widget.dart';
 import 'package:travel_platzi/widgets/gradient_back.widget.dart';
 
@@ -27,13 +29,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget handleCurrentSession() {
     return StreamBuilder(
-        stream: userBloc.userStatus,
+        stream: userBloc.userStatusStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print(
-              "snapshot.connectionState=${snapshot.connectionState} hasData=${snapshot.hasData} hasError=${snapshot.hasError}");
-          print("data -> ${snapshot.toString()}");
           if (snapshot.hasData) {
-            return PlatziTrips();
+            return const PlatziTrips();
           }
 
           if (snapshot.hasError ||
@@ -46,17 +45,14 @@ class _SignInScreenState extends State<SignInScreen> {
             alignment: Alignment.center,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.cyan[400],
-                  )),
+              const CircularProgressIndicator(
+                backgroundColor: Colors.cyan,
+              ),
               Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: Text("L o a d i n g...",
+                child: const Text("L o a d i n g...",
                     style: TextStyle(
-                        color: Colors.blue[400],
+                        color: Colors.blue,
                         fontSize: 22,
                         fontFamily: "Lato",
                         decoration: TextDecoration.none)),
@@ -91,16 +87,22 @@ class _SignInScreenState extends State<SignInScreen> {
               )),
               ButtonGreen(
                 text: 'Login with Gmail',
-                onPressed: () {
-                  userBloc.signIn().then((user) {
+                onPressed: () async {
+                  User? user = await userBloc.signIn();
+
+                  if (user != null) {
+                    String? deviceToken =
+                        await FirebaseService.getDeviceToken();
+
                     userBloc.updateUserData(user_model.User(
-                        uid: user!.uid,
+                        uid: user.uid,
                         name: user.displayName as String,
                         email: user.email as String,
                         photoURL: user.photoURL as String,
                         places: [],
-                        favoritePlaces: []));
-                  });
+                        favoritePlaces: [],
+                        deviceToken: deviceToken as String));
+                  }
                 },
                 width: 300.0,
                 height: 55.0,

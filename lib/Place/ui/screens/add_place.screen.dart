@@ -1,9 +1,15 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:travel_platzi/Place/model/place.model.dart';
 import 'package:travel_platzi/Place/ui/widgets/input_location.widget.dart';
-import 'package:travel_platzi/widgets/card_image.widget.dart';
-import 'package:travel_platzi/widgets/gradient_back.widget.dart';
+import 'package:travel_platzi/User/bloc/user.bloc.dart';
+import 'package:travel_platzi/widgets/background.widget.dart';
+import 'package:travel_platzi/widgets/button.widget.dart';
+import 'package:travel_platzi/widgets/card_image_fab_icon.widget.dart';
 import 'package:travel_platzi/widgets/text_input.widget.dart';
 import 'package:travel_platzi/widgets/title_header.widget.dart';
 
@@ -19,6 +25,7 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   @override
   Widget build(BuildContext context) {
+    UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     final controllerTitlePlace = TextEditingController();
     final controllerDescriptionPlace = TextEditingController();
     final controllerAddPlace = TextEditingController();
@@ -26,7 +33,9 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          GradientBack(height: 300.0),
+          const Background(
+            height: 0.45,
+          ),
           Row(
             children: [
               Container(
@@ -62,12 +71,13 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   margin: const EdgeInsets.only(bottom: 20.0),
                   alignment: Alignment.center,
                   child: CardImageFabIcon(
-                    pathImage: "assets/images/playa-3.jpg", //widget.image.path,
+                    pathImage: widget.image.path, //widget.image.path,
                     iconData: Icons.camera_alt,
                     height: 250.0,
                     width: 350.0,
                     left: 0.0,
                     onPressedFanIcon: () {},
+                    internet: false,
                   ),
                 ), //Photo
                 Container(
@@ -92,6 +102,43 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     hintText: "Add location",
                     iconData: Icons.location_on_outlined,
                     controller: controllerAddPlace,
+                  ),
+                ),
+                SizedBox(
+                  width: 70.0,
+                  child: Button(
+                    buttonText: "Add place",
+                    onPressed: () async {
+                      User? user = userBloc.currentUser;
+
+                      if (user != null) {
+                        String path =
+                            "${user.uid}/${DateTime.now().toString()}.jpg"
+                                .replaceAll(RegExp(r"\s+"), "_");
+                        //Firestore Storage
+                        TaskSnapshot taskSnapshot =
+                            await userBloc.uploadFile(path, widget.image);
+
+                        //Firestore DB
+                        await userBloc.updatePlaceData(Place(
+                          name: controllerTitlePlace.text,
+                          description: controllerDescriptionPlace.text,
+                          likes: 0,
+                          photoURL: await taskSnapshot.ref.getDownloadURL(),
+                          userOwner: user.uid,
+                        ));
+
+                        /*await FilesHelper().saveFile(
+                            file: widget.image,
+                            type: 'image',
+                            fileName: 'my-place.jpg');*/
+
+                        Navigator.pop(context);
+                      } else {
+                        Navigator.pop(
+                            context, const Text("User not available"));
+                      }
+                    },
                   ),
                 )
               ],

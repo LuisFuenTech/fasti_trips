@@ -1,6 +1,5 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class FloatingActionButtonGreen extends StatefulWidget {
@@ -18,12 +17,8 @@ class FloatingActionButtonGreen extends StatefulWidget {
 }
 
 class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
-  bool isFavorite = false;
-  //CollectionReference favorites = FirebaseFirestore.instance.collection("favorites");
-  final DatabaseReference _favorites =
-      FirebaseDatabase.instance.reference().child("test");
-
   /*void onPressedFavorite() {
+  bool isFavorite = false;
     setState(() {
       isFavorite = !isFavorite;
     });

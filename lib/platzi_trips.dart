@@ -7,6 +7,8 @@ import 'Place/ui/screens/home.screen.dart';
 import 'Place/ui/screens/search.screen.dart';
 
 class PlatziTrips extends StatefulWidget {
+  const PlatziTrips({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _PlatziTrips();
@@ -16,8 +18,15 @@ class PlatziTrips extends StatefulWidget {
 class _PlatziTrips extends State<PlatziTrips> {
   int indexTap = 0;
   final List<Widget> widgetChildren = [
-    HomePage(),
-    Search(),
+    Builder(
+      builder: (BuildContext context) {
+        return BlocProvider<UserBloc>(
+          bloc: UserBloc(),
+          child: const HomePage(),
+        );
+      },
+    ),
+    const Search(),
     Builder(
       builder: (BuildContext context) {
         return BlocProvider<UserBloc>(

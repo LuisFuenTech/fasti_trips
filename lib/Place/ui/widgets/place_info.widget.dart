@@ -13,7 +13,7 @@ class PlaceInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = Container(
-      margin: const EdgeInsets.only(top: 320.0, left: 20.0, right: 20.0),
+      margin: const EdgeInsets.only(top: 330.0, left: 20.0, right: 20.0),
       child: Text(
         namePlace,
         style: const TextStyle(
@@ -39,7 +39,10 @@ class PlaceInfo extends StatelessWidget {
           children: [title, StarList(stars, 325.0, 25.0)],
         ),
         description,
-        Button("Navigate")
+        Button(
+          buttonText: "Navigate",
+          onPressed: () {},
+        )
       ],
     );
   }

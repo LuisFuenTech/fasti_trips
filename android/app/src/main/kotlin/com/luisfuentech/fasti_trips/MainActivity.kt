@@ -1,4 +1,4 @@
-package com.example.travel_platzi_app
+package com.luisfuentech.fasti_trips
 
 import io.flutter.embedding.android.FlutterActivity
 

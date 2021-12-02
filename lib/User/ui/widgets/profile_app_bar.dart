@@ -1,38 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:travel_platzi/Place/model/place.model.dart';
-import 'package:travel_platzi/User/bloc/user.bloc.dart';
 import 'package:travel_platzi/User/model/user.model.dart';
 import 'package:travel_platzi/User/ui/widgets/profile_buttons_bar.widget.dart';
 import 'package:travel_platzi/User/ui/widgets/user_info.widget.dart';
 
 class ProfileAppBar extends StatelessWidget {
-  late User userData;
-  late User defaultUserData;
+  late User user;
+  late User defaultuser;
+
+  ProfileAppBar({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = BlocProvider.of<UserBloc>(context);
-
-    return StreamBuilder(
-      stream: userBloc.userStatus,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //print(userBloc.userStatus);
-        //print(snapshot.connectionState);
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-          case ConnectionState.none:
-          //return const CircularProgressIndicator();
-          case ConnectionState.active:
-          case ConnectionState.done:
-            return showProfileData(snapshot);
-        }
-      },
-    );
-
-    /*final title = Text(
-      titleHeader,
-      style: const TextStyle(
+    const title = Text(
+      "Profile",
+      style: TextStyle(
           fontFamily: 'Lato',
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -44,16 +26,15 @@ class ProfileAppBar extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            children: [
+            children: const [
               title,
             ],
           ),
-          UserInfo("assets/images/profile-1.jpg", "Luis Fuentes",
-              "luisfuentes.au@gmail.com"),
-          ButtonsBar()
+          UserInfo(user: user),
+          ProfileButtonsBar()
         ],
       ),
-    );*/
+    );
   }
 
   Widget showProfileData(AsyncSnapshot snapshot) {
@@ -68,21 +49,15 @@ class ProfileAppBar extends StatelessWidget {
 
     List<Place> places = [
       Place(
-          name: "",
-          description: "",
-          photoURL: "",
-          likes: 123,
-          userOwner: User(
-              uid: "",
-              name: "",
-              email: "",
-              photoURL: "",
-              places: [],
-              favoritePlaces: []))
+        name: "",
+        description: "",
+        photoURL: "",
+        likes: 123,
+      )
     ];
 
     if (!snapshot.hasData || snapshot.hasError) {
-      defaultUserData = User(
+      defaultuser = User(
           places: places,
           favoritePlaces: places,
           uid: "",
@@ -101,13 +76,13 @@ class ProfileAppBar extends StatelessWidget {
               ],
             ),
             //const CircularProgressIndicator(),
-            UserInfo(user: defaultUserData),
+            UserInfo(user: defaultuser),
             ProfileButtonsBar()
           ],
         ),
       );
     } else {
-      userData = User(
+      user = User(
           places: places,
           favoritePlaces: places,
           uid: "151656565",
@@ -124,7 +99,7 @@ class ProfileAppBar extends StatelessWidget {
                 title,
               ],
             ),
-            UserInfo(user: userData),
+            UserInfo(user: user),
             ProfileButtonsBar()
           ],
         ),

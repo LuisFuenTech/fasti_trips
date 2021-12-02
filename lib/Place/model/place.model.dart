@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:travel_platzi/User/model/user.model.dart';
 
 class Place {
   String name;
   String description;
   String photoURL;
   int likes;
-  User userOwner;
+  String userOwner;
+  bool liked;
+  String id;
 
   Place(
       {Key? key,
@@ -14,5 +15,7 @@ class Place {
       required this.description,
       required this.photoURL,
       required this.likes,
-      required this.userOwner});
+      this.userOwner = "",
+      this.liked = false,
+      this.id = ""});
 }

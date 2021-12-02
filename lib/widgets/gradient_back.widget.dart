@@ -32,15 +32,6 @@ class GradientBack extends StatelessWidget {
               borderRadius: BorderRadius.circular(screenHeight / 2)),
         ),
       ),
-      /*Text(
-        title,
-        style: const TextStyle(
-            color: Colors.white,
-            fontSize: 30.0,
-            fontFamily: "Lato",
-            fontWeight: FontWeight.bold),
-      ),*/
-      //alignment: const Alignment(-0.9, -0.6),
     );
   }
 }

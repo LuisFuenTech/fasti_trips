@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'review_place.widget.dart';
 
 class ReviewList extends StatelessWidget {
+  const ReviewList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
