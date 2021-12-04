@@ -20,7 +20,7 @@ class ProfileButtonsBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
       child: Row(
         children: [
-          CircleButton(true, Icons.vpn_key, 20.0,
+          CircleButton(true, Icons.settings, 20.0,
               const Color.fromRGBO(255, 255, 255, 0.6), () => {}),
           CircleButton(
               false, Icons.add, 40.0, const Color.fromRGBO(255, 255, 255, 1),
@@ -59,8 +59,8 @@ class ProfileButtonsBar extends StatelessWidget {
             });
           }),
           CircleButton(true, Icons.exit_to_app, 20.0,
-              const Color.fromRGBO(255, 255, 255, 0.6), () {
-            userBloc.signOut();
+              const Color.fromRGBO(255, 255, 255, 0.6), () async {
+            await userBloc.signOut();
           }),
         ],
       ),

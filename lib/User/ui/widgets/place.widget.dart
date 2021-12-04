@@ -6,8 +6,12 @@ import 'place_info.widget.dart';
 
 class PlaceWidget extends StatelessWidget {
   Place place;
+  final VoidCallback onPressedFanIcon;
+  final IconData iconData;
 
-  PlaceWidget(this.place, {Key? key}) : super(key: key);
+  PlaceWidget(this.place,
+      {Key? key, required this.onPressedFanIcon, required this.iconData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,14 @@ class PlaceWidget extends StatelessWidget {
 
     return Stack(
       alignment: const Alignment(0.0, 0.8),
-      children: <Widget>[photoCard, PlaceInfo(place)],
+      children: <Widget>[
+        photoCard,
+        PlaceInfo(
+          place,
+          iconData: iconData,
+          onPressedFanIcon: onPressedFanIcon,
+        )
+      ],
     );
   }
 }

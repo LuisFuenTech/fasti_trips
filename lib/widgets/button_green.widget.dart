@@ -30,7 +30,7 @@ class _ButtonGreenState extends State<ButtonGreen> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           gradient: const LinearGradient(
-              colors: [Color(0xFFa7ff84), Color(0xFF1cbb78)],
+              colors: [Color(0xffffffff), Color(0xffffffff)],
               begin: FractionalOffset(0.2, 0.0),
               end: FractionalOffset(1.0, 0.6),
               stops: [0.0, 0.6],
@@ -40,14 +40,16 @@ class _ButtonGreenState extends State<ButtonGreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            widget.icon,
+            //widget.icon,
+            Image.asset('assets/images/google-logo.png', fit: BoxFit.cover),
+            //const SizedBox(width: 5),
             Text(
               widget.text,
               textAlign: TextAlign.start,
               style: const TextStyle(
                   fontSize: 18.0,
                   fontFamily: "Lato",
-                  color: Colors.white,
+                  color: Colors.black45,
                   fontWeight: FontWeight.bold),
             ),
           ],

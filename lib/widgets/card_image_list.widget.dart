@@ -45,27 +45,34 @@ class _CardImageListState extends State<CardImageList> {
   }
 
   Widget listViewPlaces(List<Place> places) {
-    Future<void> setLiked(Place place) async {
-      setState(() async {
-        await _userBloc.likeToPlace(place, widget.user.uid);
-        place.liked = !place.liked;
-      });
+    //_userBloc.placeSelectedStreamController.add(places[0]);
+
+    void setLiked(Place place) {
+      place.liked = !place.liked;
+      _userBloc.likeToPlace(place, widget.user.uid);
+      place.likes += place.liked ? 1 : -1;
+      _userBloc.placeSelectedStreamController.add(place);
     }
 
     return ListView(
       padding: const EdgeInsets.all(25.0),
       scrollDirection: Axis.horizontal,
       children: places.map((place) {
-        return CardImageFabIcon(
-            pathImage: place.photoURL,
-            width: 300.0,
-            height: 250.0,
-            onPressedFanIcon: () async {
-              await setLiked(place);
-            },
-            iconData: place.liked ? Icons.favorite : Icons.favorite_border,
-            internet: true,
-            left: 20.0);
+        return GestureDetector(
+          onTap: () {
+            _userBloc.placeSelectedStreamController.add(place);
+          },
+          child: CardImageFabIcon(
+              pathImage: place.photoURL,
+              width: 300.0,
+              height: 250.0,
+              onPressedFanIcon: () {
+                setLiked(place);
+              },
+              iconData: place.liked ? Icons.favorite : Icons.favorite_border,
+              internet: true,
+              left: 20.0),
+        );
       }).toList(),
     );
   }

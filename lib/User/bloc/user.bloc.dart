@@ -10,7 +10,6 @@ import 'package:travel_platzi/Place/repository/storage.repository.dart';
 import 'package:travel_platzi/User/model/user.model.dart' as user_model;
 import 'package:travel_platzi/User/repository/auth.repository.dart';
 import 'package:travel_platzi/User/repository/firestore.repository.dart';
-import 'package:travel_platzi/User/ui/widgets/place.widget.dart';
 
 class UserBloc implements Bloc {
   final _authRepository = AuthRepository();
@@ -36,13 +35,15 @@ class UserBloc implements Bloc {
   Future<User?> signIn() => _authRepository.signIn();
 
   Future<void> signOut() async {
-    await updateUserData(user_model.User(
+    if (currentUser != null) {
+      await updateUserData(user_model.User(
         uid: currentUser!.uid,
         name: currentUser!.displayName as String,
         email: currentUser!.email as String,
         photoURL: currentUser!.photoURL as String,
-        places: [],
-        favoritePlaces: []));
+      ));
+    }
+
     _authRepository.signOut();
   }
 
@@ -57,8 +58,9 @@ class UserBloc implements Bloc {
     return _storageRepository.uploadFile(path, file);
   }
 
-  List<PlaceWidget> buildUserPlaces(List<DocumentSnapshot> placesSnapshot) =>
-      _firestoreRepository.buildUserPlaces(placesSnapshot);
+  List<Place> buildUserPlaces(
+          List<DocumentSnapshot> placesSnapshot, user_model.User user) =>
+      _firestoreRepository.buildUserPlaces(placesSnapshot, user);
 
   Future likeToPlace(Place place, String uid) =>
       _placeRepository.likeToPlace(place, uid);

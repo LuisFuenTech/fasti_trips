@@ -31,34 +31,30 @@ class _SignInScreenState extends State<SignInScreen> {
     return StreamBuilder(
         stream: userBloc.userStatusStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
+          /*if (snapshot.hasData && snapshot.connectionState = ) {
             return const PlatziTrips();
           }
 
           if (snapshot.hasError ||
               snapshot.connectionState != ConnectionState.waiting) {
             return signInGoogleUI();
-          }
+          }*/
 
-          return Container(
-            color: Colors.white,
-            alignment: Alignment.center,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const CircularProgressIndicator(
-                backgroundColor: Colors.cyan,
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: const Text("L o a d i n g...",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 22,
-                        fontFamily: "Lato",
-                        decoration: TextDecoration.none)),
-              )
-            ]),
-          );
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              if (snapshot.hasError) {
+                return signInGoogleUI();
+              } else {
+                return loadingWidget();
+              }
+            default:
+              if (snapshot.hasData) {
+                return const PlatziTrips();
+              } else {
+                return signInGoogleUI();
+              }
+          }
         });
   }
 
@@ -86,8 +82,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               )),
               ButtonGreen(
-                text: 'Login with Gmail',
+                text: 'Sign in with Google',
                 onPressed: () async {
+                  await userBloc.signOut();
                   User? user = await userBloc.signIn();
 
                   if (user != null) {
@@ -104,10 +101,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         deviceToken: deviceToken as String));
                   }
                 },
-                width: 300.0,
+                width: 250.0,
                 height: 55.0,
                 icon: const Icon(
-                  Icons.add_reaction,
+                  Icons.android,
                   size: 30.0,
                   color: Colors.white,
                 ),
@@ -116,6 +113,27 @@ class _SignInScreenState extends State<SignInScreen> {
           )
         ],
       ),
+    );
+  }
+
+  Widget loadingWidget() {
+    return Container(
+      color: Colors.white,
+      alignment: Alignment.center,
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const CircularProgressIndicator(
+          backgroundColor: Colors.cyan,
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: const Text("L o a d i n g...",
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 22,
+                  fontFamily: "Lato",
+                  decoration: TextDecoration.none)),
+        )
+      ]),
     );
   }
 }

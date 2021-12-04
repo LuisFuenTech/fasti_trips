@@ -6,8 +6,8 @@ class User {
   final String name;
   final String email;
   final String photoURL;
-  final List<Place> places;
-  final List<Place> favoritePlaces;
+  List<Place> places;
+  List<Place> favoritePlaces;
   String deviceToken;
 
   User(
@@ -16,7 +16,7 @@ class User {
       required this.name,
       required this.email,
       required this.photoURL,
-      required this.places,
-      required this.favoritePlaces,
+      this.places = const [],
+      this.favoritePlaces = const [],
       this.deviceToken = ""});
 }

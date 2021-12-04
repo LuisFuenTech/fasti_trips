@@ -12,27 +12,16 @@ class FirebaseService {
 
   static Future<void> _onBackgroundAppNotificationHandler(
       RemoteMessage message) async {
-    print("onBackgroundApp notification handler ${message.messageId}");
-
-    String title = message.notification?.title ?? "DEFAULT_TITLE_NOTIFY";
-    print(message.notification?.title);
-    print(message.notification?.body);
-    print(message.data);
-
     _notificationStream.add(message.data);
   }
 
   static Future<void> _onMessageAppNotificationHandler(
       RemoteMessage message) async {
-    print("onMessageApp notification handler ${message.messageId}");
-
     _notificationStream.add(message.data);
   }
 
   static Future<void> _onOpenAppNotificationHandler(
       RemoteMessage message) async {
-    print("onOpenApp notification handler ${message.messageId}");
-
     _notificationStream.add(message.data);
   }
 

@@ -7,7 +7,6 @@ import 'package:travel_platzi/platzi_trips.dart';
 import 'package:travel_platzi/services/firebase.service.dart';
 
 Future<void> main() async {
-  print("Main");
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
@@ -37,8 +36,6 @@ class _AppState extends State<App> {
     super.initState();
 
     FirebaseService.notificationStream.listen((message) {
-      print("App: ---> ${message["type"]}");
-
       /*
       * message = {
       *   destination: String

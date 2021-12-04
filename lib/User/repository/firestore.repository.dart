@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travel_platzi/Place/model/place.model.dart';
 import 'package:travel_platzi/User/model/user.model.dart' as user_model;
-import 'package:travel_platzi/User/ui/widgets/place.widget.dart';
 import 'package:travel_platzi/data_sources/firebase.source.dart';
 import 'package:travel_platzi/data_sources/firestore.source.dart';
 
@@ -48,20 +47,32 @@ class FirestoreRepository {
     });
   }
 
-  List<PlaceWidget> buildUserPlaces(List<DocumentSnapshot> placesSnapshot) {
-    List<PlaceWidget> profilePlaces = <PlaceWidget>[];
+  List<Place> buildUserPlaces(
+      List<DocumentSnapshot> placesSnapshot, user_model.User user) {
+    List<Place> profilePlaces = <Place>[];
 
     placesSnapshot.sort((a, b) {
       return b['createdAt'].compareTo(a['createdAt']);
     });
 
-    for (DocumentSnapshot place in placesSnapshot) {
-      profilePlaces.add(PlaceWidget(Place(
-          name: place['name'],
-          description: place["description"],
-          likes: place["likes"],
-          photoURL: place["photoURL"],
-          userOwner: "")));
+    for (DocumentSnapshot placeDoc in placesSnapshot) {
+      Place place = Place(
+          id: placeDoc.id,
+          name: placeDoc['name'],
+          description: placeDoc["description"],
+          photoURL: placeDoc["photoURL"],
+          likes: placeDoc["likes"],
+          liked: false);
+
+      List userLikedRefs = placeDoc["userLiked"];
+
+      for (DocumentReference userRef in userLikedRefs) {
+        if (user.uid == userRef.id) {
+          place.liked = true;
+        }
+      }
+
+      profilePlaces.add(place);
     }
 
     return profilePlaces;

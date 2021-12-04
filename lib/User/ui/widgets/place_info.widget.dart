@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:travel_platzi/Place/model/place.model.dart';
 import 'package:travel_platzi/widgets/floating_action_button_green.widget.dart';
 
-class PlaceInfo extends StatelessWidget {
+class PlaceInfo extends StatefulWidget {
   Place placeInfo;
+  final VoidCallback onPressedFanIcon;
+  final IconData iconData;
 
-  PlaceInfo(this.placeInfo, {Key? key}) : super(key: key);
+  PlaceInfo(this.placeInfo,
+      {Key? key, required this.onPressedFanIcon, required this.iconData})
+      : super(key: key);
 
+  @override
+  State<PlaceInfo> createState() => _PlaceInfoState();
+}
+
+class _PlaceInfoState extends State<PlaceInfo> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
     final place = Text(
-      this.placeInfo.name,
+      widget.placeInfo.name,
       style: const TextStyle(
           fontFamily: 'Lato', fontSize: 20.0, fontWeight: FontWeight.bold),
     );
@@ -23,20 +32,20 @@ class PlaceInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                this.placeInfo.description,
+                widget.placeInfo.description,
                 style: const TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
                     fontFamily: 'Lato',
-                    fontSize: 12.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.bold),
               )
             ]));
 
-    final steps = Text(
-      'Hearts ${this.placeInfo.likes}',
+    final hearts = Text(
+      '${widget.placeInfo.likes}',
       style: const TextStyle(
           fontFamily: 'Lato',
-          fontSize: 14.0,
+          fontSize: 18.0,
           fontWeight: FontWeight.bold,
           color: Colors.amber),
     );
@@ -56,7 +65,17 @@ class PlaceInfo extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[place, placeInfo, steps],
+            children: <Widget>[
+              place,
+              placeInfo,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Icon(Icons.favorite, color: Colors.amber),
+                  hearts
+                ],
+              )
+            ],
           )),
     );
 
@@ -65,8 +84,8 @@ class PlaceInfo extends StatelessWidget {
       children: <Widget>[
         card,
         FloatingActionButtonGreen(
-          iconData: Icons.favorite_border,
-          onPressed: () {},
+          iconData: widget.iconData,
+          onPressed: widget.onPressedFanIcon,
         )
       ],
     );
